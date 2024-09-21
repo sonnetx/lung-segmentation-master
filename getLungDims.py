@@ -43,15 +43,19 @@ unet.to(device)
 unet.eval()
 
 # %%
-# directory = "/home/groups/roxanad/sonnet/lung-segmentation-master/inputs"
-directory = "C:\\Users\\sonne\\Documents\\GitHub\\lung-segmentation-master\\inputs"
-output_directory = "C:\\Users\\sonne\\Documents\\GitHub\\lung-segmentation-master\\masks"
+directory = "/home/groups/roxanad/sonnet/lung-segmentation-master/inputs"
+# directory = "C:\\Users\\sonne\\Documents\\GitHub\\lung-segmentation-master\\inputs"
+# output_directory = "C:\\Users\\sonne\\Documents\\GitHub\\lung-segmentation-master\\masks"
+output_directory = "/home/groups/roxanad/sonnet/lung-segmentation-master/masks"
 
 # Iterate through all files in the directory
 for filename in os.listdir(directory):
     if filename.lower().endswith(".jpg"):
         origin_filename = os.path.join(directory, filename)
-        origin = Image.open(origin_filename).convert("P")
+        try:
+            origin = Image.open(origin_filename).convert("P")
+        except:
+            continue
         origin = torchvision.transforms.functional.resize(origin, (512, 512))
         origin = torchvision.transforms.functional.to_tensor(origin) - 0.5
 
