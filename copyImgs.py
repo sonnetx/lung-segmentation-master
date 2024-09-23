@@ -11,14 +11,21 @@ def copy_files(file_list_path, source_directory, target_directory):
     
     for file_name in file_names:
         source_path = os.path.join(source_directory, file_name)
-        target_path = os.path.join(target_directory, file_name)
+        f_name = file_name.split(sep='/')[-1]
+        target_path = os.path.join(target_directory, f_name)
         
         if os.path.isfile(source_path):
             if not os.path.exists(target_path):
                 shutil.copy2(source_path, target_path)
                 print(f'Copied {file_name} to {target_directory}')
+                os.remove(source_path)
+                print(f'Deleted original file {file_name} from {source_directory}')
+
             else:
                 print(f'File {file_name} already exists in {target_directory}')
+                os.remove(source_path)
+                print(f'Deleted original file {file_name} from {source_directory}')
+
         else:
             print(f'File {file_name} not found in {source_directory}')
 
@@ -34,8 +41,8 @@ def remove_extra_files(file_list_path, target_directory):
                 print(f'Removed {file_name} from {target_directory}')
                 
 # Specify the paths
-file_list_path = '/home/groups/roxanad/sonnet/IMAGE_FILENAMES.txt'
-source_directory = '/home/groups/roxanad/sonnet/mimic-cxr-jpg/2.1.0'
+file_list_path = '/home/groups/roxanad/sonnet/lung-segmentation-master/test_set_jpgs.txt'
+source_directory = '/home/groups/roxanad/sonnet/lung-segmentation-master/mimic-cxr-jpg/2.1.0'
 target_directory = '/home/groups/roxanad/sonnet/lung-segmentation-master/inputs'
 
 # Copy the files
