@@ -1,5 +1,7 @@
 # Lung segmentation
 
+Used this: https://github.com/IlliaOvcharenko/lung-segmentation
+
 ## Proposed solution
 This code tackles semantic segmentation problems with a UNet - fully convolutional network with an encoder-decoder path. High-resolution features from the contracting path are combined with the upsampled output in order to predict more precise output based on this information, which is the main idea of this architecture.
 
